@@ -13,6 +13,8 @@
 request = require 'request'
 module.exports = (robot) ->
   robot.hear /.*?/i, (msg) ->
+    post_channel = process.env.SLACK_POST_CHANNEL || 'timeline'
+
     channel = msg.envelope.room
     message = msg.message.text
     username = msg.message.user.name
@@ -21,7 +23,7 @@ module.exports = (robot) ->
     user_image = robot.brain.data.userImages[user_id]
     if message.length > 0
       message = encodeURIComponent(message)
-      request = msg.http("https://slack.com/api/chat.postMessage?token=#{process.env.SLACK_API_TOKEN}&channel=%23timeline&text=#{message}%20(at%20%23#{channel}%20)&username=#{username}&link_names=0&pretty=1&icon_url=#{user_image}").get()
+      request = msg.http("https://slack.com/api/chat.postMessage?token=#{process.env.SLACK_API_TOKEN}&channel=%23#{post_channel}&text=#{message}%20(at%20%23#{channel}%20)&username=#{username}&link_names=0&pretty=1&icon_url=#{user_image}").get()
       request (err, res, body) ->
 
   reloadUserImages = (robot, user_id) ->

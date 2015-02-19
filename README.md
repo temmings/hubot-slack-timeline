@@ -25,6 +25,12 @@ type `/open` and create #timeline channel in your Slack
 
     % export SLACK_API_TOKEN="YOUR_SLACK_API_TOKEN"
 
+### Other configuration (optional)
+
+Can specify the channel for the post.
+
+    % heroku config:add SLACK_POST_CHANNEL="SLACK_CHANNEL"
+    or
+    % export SLACK_POST_CHANNEL="SLACK_CHANNEL"
 
 **Note**: You can generate Slack API token here [https://api.slack.com/](https://api.slack.com/)
-
