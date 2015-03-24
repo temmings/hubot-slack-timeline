@@ -13,6 +13,8 @@
 request = require 'request'
 module.exports = (robot) ->
   robot.hear /.*?/i, (msg) ->
+    return if not process.env.hasOwnProperty('SLACK_API_TOKEN')
+
     post_channel = process.env.SLACK_POST_CHANNEL || 'timeline'
 
     channel = msg.envelope.room
